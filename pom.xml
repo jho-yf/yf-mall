@@ -20,6 +20,9 @@
         <module>yf-mall-member</module>
         <module>yf-mall-order</module>
         <module>yf-mall-ware</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>yf-mall-common</module>
     </modules>
 
     <properties>

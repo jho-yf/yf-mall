@@ -6,12 +6,14 @@ PMS_DB_NAME="yf_pms_db"
 SMS_DB_NAME="yf_sms_db"
 UMS_DB_NAME="yf_ums_db"
 WMS_DB_NAME="yf_wms_db"
+MALL_ADMIN_DB_NAME="yf_mall_admin_db"
 
 OMS_DB_USER="oms"
 PMS_DB_USER="pms"
 SMS_DB_USER="sms"
 UMS_DB_USER="ums"
 WMS_DB_USER="wms"
+MALL_ADMIN_DB_USER="mall_admin"
 DB_PASSWORD="yf123456"
 
 mysql -uroot -p"$MYSQL_ROOT_PASSWORD" <<-EOSQL
@@ -54,4 +56,12 @@ mysql -uroot -p"$MYSQL_ROOT_PASSWORD" <<-EOSQL
       flush privileges;
       USE ${WMS_DB_NAME};
       SOURCE /sql/yf-mall-wms.sql
+
+      CREATE database if NOT EXISTS ${MALL_ADMIN_DB_NAME} default character set utf8mb4 collate utf8mb4_unicode_ci;
+      CREATE USER ${MALL_ADMIN_DB_USER}@'%' IDENTIFIED BY '${DB_PASSWORD}';
+      flush privileges;
+      grant all privileges on ${MALL_ADMIN_DB_NAME}.* to ${MALL_ADMIN_DB_USER}@'%' identified by '${DB_PASSWORD}';
+      flush privileges;
+      USE ${MALL_ADMIN_DB_NAME};
+      SOURCE /sql/yf-mall-admin.sql
 EOSQL
