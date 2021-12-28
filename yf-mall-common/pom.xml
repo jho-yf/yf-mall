@@ -11,4 +11,53 @@
 
     <artifactId>yf-mall-common</artifactId>
 
+    <properties>
+        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <lombok.version>1.18.22</lombok.version>
+        <httpcore.version>4.4.15</httpcore.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <servlet.api.version>2.5</servlet.api.version>
+    </properties>
+
+    <dependencies>
+        <!-- mybaits plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+
+        <!--  lombok  -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- mysql数据库驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.api.version}</version>
+            <!-- 目标环境如果已存在，则打包不带上 -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

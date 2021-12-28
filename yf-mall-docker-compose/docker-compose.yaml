@@ -12,7 +12,6 @@ services:
       # 指定环境变量LANG编码，否则初始化数据库表会乱码
       LANG: C.UTF-8
     volumes:
-#      - "./mysql/conf/my.cnf:/etc/mysql/my.cnf"
       - "./mysql/data:/var/lib/mysql"
       - "./mysql/sql:/sql"
       - "./mysql/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh"
