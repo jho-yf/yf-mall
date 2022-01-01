@@ -15,6 +15,7 @@
     <url>https://yifangxiaodi.com</url>
 
     <modules>
+        <module>yf-mall-common</module>
         <module>yf-mall-product</module>
         <module>yf-mall-coupon</module>
         <module>yf-mall-member</module>
@@ -22,7 +23,6 @@
         <module>yf-mall-ware</module>
         <module>renren-fast</module>
         <module>renren-generator</module>
-        <module>yf-mall-common</module>
     </modules>
 
     <properties>
@@ -36,8 +36,33 @@
         <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
     </properties>
 
-
-
-
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring boot 2.3.12.RELEASE -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud Hoxton.SR12 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud alibaba 2.2.7.RELEASE -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
