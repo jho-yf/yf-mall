@@ -2,11 +2,17 @@ server:
   port: 7000
 
 spring:
+  application:
+    name: yf-mall-coupon
   datasource:
     url: jdbc:mysql://localhost:3306/yf_sms_db?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: sms
     password: yf123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
