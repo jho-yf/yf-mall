@@ -7,6 +7,7 @@ SMS_DB_NAME="yf_sms_db"
 UMS_DB_NAME="yf_ums_db"
 WMS_DB_NAME="yf_wms_db"
 MALL_ADMIN_DB_NAME="yf_mall_admin_db"
+NACOS_DB_NAME="nacos_db"
 
 OMS_DB_USER="oms"
 PMS_DB_USER="pms"
@@ -14,6 +15,7 @@ SMS_DB_USER="sms"
 UMS_DB_USER="ums"
 WMS_DB_USER="wms"
 MALL_ADMIN_DB_USER="mall_admin"
+NACOS_DB_USER="nacos"
 DB_PASSWORD="yf123456"
 
 mysql -uroot -p"$MYSQL_ROOT_PASSWORD" <<-EOSQL
@@ -64,4 +66,12 @@ mysql -uroot -p"$MYSQL_ROOT_PASSWORD" <<-EOSQL
       flush privileges;
       USE ${MALL_ADMIN_DB_NAME};
       SOURCE /sql/yf-mall-admin.sql
+
+      CREATE database if NOT EXISTS ${NACOS_DB_NAME} default character set utf8mb4 collate utf8mb4_unicode_ci;
+      CREATE USER ${NACOS_DB_USER}@'%' IDENTIFIED BY '${DB_PASSWORD}';
+      flush privileges;
+      grant all privileges on ${NACOS_DB_NAME}.* to ${NACOS_DB_USER}@'%' identified by '${DB_PASSWORD}';
+      flush privileges;
+      USE ${NACOS_DB_NAME};
+      SOURCE /sql/nacos-mysql.sql
 EOSQL
