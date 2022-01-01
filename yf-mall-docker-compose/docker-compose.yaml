@@ -16,3 +16,18 @@ services:
       - "./mysql/sql:/sql"
       - "./mysql/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh"
     restart: always
+
+  nacos:
+    image: nacos/nacos-server:2.0.3
+    env_file:
+      - ./nacos/env/nacos-standlone-mysql.env
+    volumes:
+      - ./nacos/logs/:/home/nacos/logs
+      - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9555:9555"
+    depends_on:
+      - mysql
+    restart: always
