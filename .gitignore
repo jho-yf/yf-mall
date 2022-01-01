@@ -24,3 +24,4 @@ hs_err_pid*
 *.iml
 /yf-mall-docker-compose/mysql/data/
 **/target/
+/generate_code/
