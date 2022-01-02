@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: yf-mall-ware
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
