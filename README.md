@@ -13,3 +13,5 @@
 - yf-mall-product：商品服务
 
 - yf-mall-ware：库存服务
+
+- yf-mall-gateway：服务网关

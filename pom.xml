@@ -23,6 +23,7 @@
         <module>yf-mall-ware</module>
         <module>renren-fast</module>
         <module>renren-generator</module>
+        <module>yf-mall-gateway</module>
     </modules>
 
     <properties>

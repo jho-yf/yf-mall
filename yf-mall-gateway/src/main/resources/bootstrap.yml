@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: yf-mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        namespace: 69fd62d7-ed80-405d-af1e-0b0cfa472251
+        file-extension: yaml
+        extension-configs:
+          - data-id: others.yaml        # 配置id
+            group: dev                  # 配置分组
+            refresh: true               # 是否自动刷新
