@@ -17,6 +17,11 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    // 方法和空格之间不需要空格
+    'space-before-function-paren': 0,
+    'quotes': 'off',
+    'semi': 'off',
+    'comma-dangle': 'off',
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
