@@ -3,5 +3,6 @@ spring:
     name: yf-mall-product
   cloud:
     nacos:
-      discovery:
+      config:
         server-addr: localhost:8848
+        namespace: c0a06d80-348e-4290-9ef0-ba9617b93181

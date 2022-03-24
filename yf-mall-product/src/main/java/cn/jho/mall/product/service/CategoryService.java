@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jho.common.utils.PageUtils;
 import cn.jho.mall.product.entity.CategoryEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +16,19 @@ import java.util.Map;
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
+    /**
+     * 根据条件分页查询
+     *
+     * @param params 查询条件
+     * @return {@link PageUtils}
+     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 以树的形式查询分类列表
+     *
+     * @return {@link CategoryEntity}
+     */
+    List<CategoryEntity> listWithTree();
 }
 
