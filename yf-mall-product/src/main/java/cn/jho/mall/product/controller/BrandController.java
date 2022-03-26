@@ -26,7 +26,7 @@ import cn.jho.common.utils.R;
  * @date 2021-12-28 20:31:25
  */
 @RestController
-@RequestMapping("product/brand")
+@RequestMapping("/product/brand")
 public class BrandController {
     @Autowired
     private BrandService brandService;
