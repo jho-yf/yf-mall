@@ -3,8 +3,6 @@ spring:
     name: yf-mall-third-party
   cloud:
     alicloud:
-      access-key: LTAI5t9h3q9zdF3U7At8HJJ7
-      secret-key: F6BA9HiOyLz5Pch92L21VIjevq0vkZ
       oss:
         endpoint: oss-cn-guangzhou.aliyuncs.com
     nacos:
