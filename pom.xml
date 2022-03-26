@@ -24,6 +24,7 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>yf-mall-gateway</module>
+        <module>yf-mall-third-party</module>
     </modules>
 
     <properties>
@@ -35,6 +36,12 @@
         <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
+        <alicloud.oss.version>2.2.0.RELEASE</alicloud.oss.version>
+        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <lombok.version>1.18.22</lombok.version>
+        <httpcore.version>4.4.15</httpcore.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <servlet.api.version>2.5</servlet.api.version>
     </properties>
 
     <dependencyManagement>

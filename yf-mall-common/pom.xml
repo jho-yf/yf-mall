@@ -11,14 +11,6 @@
 
     <artifactId>yf-mall-common</artifactId>
 
-    <properties>
-        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
-        <lombok.version>1.18.22</lombok.version>
-        <httpcore.version>4.4.15</httpcore.version>
-        <commons.lang.version>2.6</commons.lang.version>
-        <servlet.api.version>2.5</servlet.api.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +34,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
 
         <!-- mybaits plus -->
         <dependency>
@@ -81,7 +74,6 @@
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
         </dependency>
-
 
     </dependencies>
 

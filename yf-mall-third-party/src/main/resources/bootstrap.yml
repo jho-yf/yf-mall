@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: yf-mall-third-party
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: cf5758ac-9fcc-4f46-840c-6c8010851bfe
+        file-extension: yaml
+        extension-configs:
+          - data-id: oss.yaml
+            group: DEFAULT_GROUP
+            refresh: true

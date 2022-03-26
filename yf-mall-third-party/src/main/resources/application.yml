@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: yf-mall-third-party
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+server:
+  port: 30000
