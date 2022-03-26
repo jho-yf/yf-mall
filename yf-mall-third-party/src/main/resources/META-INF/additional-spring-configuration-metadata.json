@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "yf.third.oss.bucket",
+      "type": "java.lang.String",
+      "description": "对象存储服务的bucket."
+  }
+] }
