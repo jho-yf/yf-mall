@@ -1,21 +1,17 @@
 package cn.jho.mall.product.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-// import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import cn.jho.mall.product.entity.BrandEntity;
-import cn.jho.mall.product.service.BrandService;
 import cn.jho.common.utils.PageUtils;
 import cn.jho.common.utils.R;
+import cn.jho.common.valid.group.AddGroup;
+import cn.jho.common.valid.group.UpdateGroup;
+import cn.jho.mall.product.entity.BrandEntity;
+import cn.jho.mall.product.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**
@@ -59,7 +55,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
     // @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@RequestBody @Validated(AddGroup.class) BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();
@@ -70,7 +66,7 @@ public class BrandController {
      */
     @RequestMapping("/update")
     // @RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@RequestBody @Validated(UpdateGroup.class) BrandEntity brand){
 		brandService.updateById(brand);
 
         return R.ok();
