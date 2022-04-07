@@ -30,5 +30,13 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @return {@link CategoryEntity}
      */
     List<CategoryEntity> listWithTree();
+
+    /**
+     * 根据分类id查询分类所在路径 [所在分类， 子， 孙, ...]
+     *
+     * @param catelogId 分类id
+     * @return 分类路径
+     */
+    List<Long> findCategoryPath(Long catelogId);
 }
 

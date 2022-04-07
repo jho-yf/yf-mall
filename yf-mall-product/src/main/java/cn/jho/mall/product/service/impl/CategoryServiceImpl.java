@@ -1,21 +1,20 @@
 package cn.jho.mall.product.service.impl;
 
+import cn.jho.common.utils.PageUtils;
+import cn.jho.common.utils.Query;
+import cn.jho.mall.product.dao.CategoryDao;
+import cn.jho.mall.product.entity.CategoryEntity;
+import cn.jho.mall.product.service.CategoryService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import cn.jho.common.utils.PageUtils;
-import cn.jho.common.utils.Query;
-
-import cn.jho.mall.product.dao.CategoryDao;
-import cn.jho.mall.product.entity.CategoryEntity;
-import cn.jho.mall.product.service.CategoryService;
 
 
 /**
@@ -49,6 +48,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 })
                 .sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort())))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> findCategoryPath(Long catelogId) {
+        List<Long> paths = new ArrayList<>();
+        findCategoryPath(catelogId, paths);
+        return paths;
+    }
+
+    private void findCategoryPath(Long catelogId, List<Long> paths) {
+        paths.add(0, catelogId);
+        CategoryEntity category = this.getById(catelogId);
+        Long parentCid = category.getParentCid();
+        if (parentCid != null && parentCid != 0) {
+            findCategoryPath(parentCid, paths);
+        }
     }
 
     /**
