@@ -10,7 +10,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @date 2022-01-01 11:25
  */
 @EnableDiscoveryClient
-@MapperScan("cn.jho.mall.member.dao")
 @SpringBootApplication
 public class YfMallMemberApplication {
 
