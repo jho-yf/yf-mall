@@ -112,6 +112,21 @@ create table pms_category
 alter table pms_category comment '商品三级分类';
 
 /*==============================================================*/
+/* Table: pms_category_brand_relation                           */
+/*==============================================================*/
+create table pms_category_brand_relation
+(
+    id                   bigint not null auto_increment,
+    brand_id             bigint comment '品牌id',
+    catelog_id           bigint comment '分类id',
+    brand_name           varchar(255),
+    catelog_name         varchar(255),
+    primary key (id)
+);
+
+alter table pms_category_brand_relation comment '品牌分类关联';
+
+/*==============================================================*/
 /* Table: pms_comment_replay                                    */
 /*==============================================================*/
 create table pms_comment_replay
