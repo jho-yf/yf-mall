@@ -34,6 +34,7 @@ public class YfMallExceptionControllerAdvice {
     @ExceptionHandler(value = Throwable.class)
     public R handleException(Throwable throwable) {
         log.error("未知异常：{}", throwable.getMessage());
+        throwable.printStackTrace();
         return R.error(BizCodeEnum.UNKNOWN_EXCEPTION.getCode(), BizCodeEnum.UNKNOWN_EXCEPTION.getMessage());
     }
 
