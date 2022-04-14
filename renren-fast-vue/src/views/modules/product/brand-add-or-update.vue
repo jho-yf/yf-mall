@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="!dataForm.brandId ? '新增' : '修改'"
+    :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
     :visible.sync="visible"
   >
@@ -28,8 +28,7 @@
           inactive-color="#ff4949"
           :active-value="1"
           :inactive-value="0"
-        >
-        </el-switch>
+        ></el-switch>
       </el-form-item>
       <el-form-item label="检索首字母" prop="firstLetter">
         <el-input
@@ -49,11 +48,9 @@
 </template>
 
 <script>
-import singleUpload from "@/components/upload/singleUpload";
+import SingleUpload from "@/components/upload/singleUpload";
 export default {
-  components: {
-    singleUpload,
-  },
+  components: { SingleUpload },
   data() {
     return {
       visible: false,
@@ -69,7 +66,7 @@ export default {
       dataRule: {
         name: [{ required: true, message: "品牌名不能为空", trigger: "blur" }],
         logo: [
-          { required: true, message: "品牌logo地址不能为空", trigger: "blur" },
+          { required: true, message: "品牌logo不能为空", trigger: "blur" },
         ],
         descript: [
           { required: true, message: "介绍不能为空", trigger: "blur" },
@@ -87,9 +84,8 @@ export default {
               if (value == "") {
                 callback(new Error("首字母必须填写"));
               } else if (!/^[a-zA-Z]$/.test(value)) {
-                callback(new Error("首字母只能有一个且必须a-z或A-Z之间"));
+                callback(new Error("首字母必须a-z或者A-Z之间"));
               } else {
-                // 成功
                 callback();
               }
             },
@@ -99,13 +95,11 @@ export default {
         sort: [
           {
             validator: (rule, value, callback) => {
-              console.log("value", value, value === "");
               if (value === "") {
                 callback(new Error("排序字段必须填写"));
               } else if (!Number.isInteger(value) || value < 0) {
-                callback(new Error("排序字段必须一个大于等于0的整数"));
+                callback(new Error("排序必须是一个大于等于0的整数"));
               } else {
-                // 成功
                 callback();
               }
             },
