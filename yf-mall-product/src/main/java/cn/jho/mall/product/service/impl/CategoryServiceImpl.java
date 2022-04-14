@@ -4,11 +4,14 @@ import cn.jho.common.utils.PageUtils;
 import cn.jho.common.utils.Query;
 import cn.jho.mall.product.dao.CategoryDao;
 import cn.jho.mall.product.entity.CategoryEntity;
+import cn.jho.mall.product.service.CategoryBrandRelationService;
 import cn.jho.mall.product.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,6 +25,9 @@ import java.util.stream.Collectors;
  */
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -55,6 +61,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<Long> paths = new ArrayList<>();
         findCategoryPath(catelogId, paths);
         return paths;
+    }
+
+    @Override
+    public void updateDetailById(CategoryEntity category) {
+        this.updateById(category);
+        if (StringUtils.hasLength(category.getName())) {
+            categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+        }
     }
 
     private void findCategoryPath(Long catelogId, List<Long> paths) {
