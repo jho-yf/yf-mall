@@ -51,4 +51,9 @@ public class AttrVO {
     /** 属性分组id */
     private Long attrGroupId;
 
+    /**
+     * 值类型【0 - 单选，1 - 多选】
+     */
+    private Integer valueType;
+
 }
