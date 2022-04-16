@@ -2,10 +2,9 @@ package cn.jho.mall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 属性&属性分组关联
@@ -17,6 +16,7 @@ import lombok.Data;
 @Data
 @TableName("pms_attr_attrgroup_relation")
 public class AttrAttrgroupRelationEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	/**
