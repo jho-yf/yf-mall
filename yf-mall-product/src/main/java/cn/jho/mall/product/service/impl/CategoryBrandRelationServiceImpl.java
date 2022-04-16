@@ -2,13 +2,13 @@ package cn.jho.mall.product.service.impl;
 
 import cn.jho.common.utils.PageUtils;
 import cn.jho.common.utils.Query;
-import cn.jho.mall.product.dao.BrandDao;
 import cn.jho.mall.product.dao.CategoryBrandRelationDao;
-import cn.jho.mall.product.dao.CategoryDao;
 import cn.jho.mall.product.entity.BrandEntity;
 import cn.jho.mall.product.entity.CategoryBrandRelationEntity;
 import cn.jho.mall.product.entity.CategoryEntity;
+import cn.jho.mall.product.service.BrandService;
 import cn.jho.mall.product.service.CategoryBrandRelationService;
+import cn.jho.mall.product.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,7 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -28,16 +30,16 @@ import java.util.Map;
 public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationDao, CategoryBrandRelationEntity> implements CategoryBrandRelationService {
 
     @Autowired
-    private BrandDao brandDao;
+    private CategoryService categoryService;
 
     @Autowired
-    private CategoryDao categoryDao;
+    private BrandService brandService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryBrandRelationEntity> page = this.page(
                 new Query<CategoryBrandRelationEntity>().getPage(params),
-                new QueryWrapper<CategoryBrandRelationEntity>()
+                new QueryWrapper<>()
         );
 
         return new PageUtils(page);
@@ -48,8 +50,8 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         Long brandId = categoryBrandRelation.getBrandId();
         Long catelogId = categoryBrandRelation.getCatelogId();
         try {
-            BrandEntity brandEntity = brandDao.selectById(brandId);
-            CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+            BrandEntity brandEntity = brandService.getById(brandId);
+            CategoryEntity categoryEntity = categoryService.getById(catelogId);
             categoryBrandRelation.setBrandName(brandEntity.getName());
             categoryBrandRelation.setCatelogName(categoryEntity.getName());
         } catch (Exception e) {
@@ -74,6 +76,15 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         relationEntity.setCatelogId(catId);
         relationEntity.setCatelogName(name);
         this.update(relationEntity, new UpdateWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+    }
+
+    @Override
+    public List<BrandEntity> getBrandsByCatId(Long catId) {
+        List<CategoryBrandRelationEntity> relationEntities = this.list(
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+        return relationEntities.stream()
+                .map(entity -> brandService.getById(entity.getBrandId()))
+                .collect(Collectors.toList());
     }
 
 }

@@ -2,8 +2,10 @@ package cn.jho.mall.product.controller;
 
 import cn.jho.common.utils.PageUtils;
 import cn.jho.common.utils.R;
+import cn.jho.mall.product.entity.BrandEntity;
 import cn.jho.mall.product.entity.CategoryBrandRelationEntity;
 import cn.jho.mall.product.service.CategoryBrandRelationService;
+import cn.jho.mall.product.vo.BrandRespVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,19 +40,6 @@ public class CategoryBrandRelationController {
 
         return R.ok().put("page", page);
     }
-
-    /**
-     * 获取当前平台关联的所有分类列表
-     */
-    @GetMapping("/catelog/list")
-    // @RequiresPermissions("product:categorybrandrelation:list")
-    public R listCatelogs(@RequestParam("brandId") Long brandId){
-        List<CategoryBrandRelationEntity> data = categoryBrandRelationService.list(
-                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId)
-        );
-        return R.ok().put("data", data);
-    }
-
 
     /**
      * 信息
@@ -96,6 +85,27 @@ public class CategoryBrandRelationController {
 		categoryBrandRelationService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    /**
+     * 获取品牌关联的所有分类列表
+     */
+    @GetMapping("/catelog/list")
+    // @RequiresPermissions("product:categorybrandrelation:list")
+    public R listCatelogs(@RequestParam("brandId") Long brandId){
+        List<CategoryBrandRelationEntity> data = categoryBrandRelationService.list(
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId)
+        );
+        return R.ok().put("data", data);
+    }
+
+    @GetMapping("/brands/list")
+    public R listBrands(@RequestParam("catId") Long catId) {
+        List<BrandEntity> data = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandRespVO> vos = data.stream()
+                .map(entity -> new BrandRespVO(entity.getBrandId(), entity.getName()))
+                .collect(Collectors.toList());
+        return R.ok().put("data", vos);
     }
 
 }
