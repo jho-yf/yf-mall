@@ -80,9 +80,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public PageUtils queryAttrPage(Map<String, Object> params, Long catelogId, String attrType) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("attr_type",
-                AttrTypeEnum.ATTR_TYPE_BASE.getName().equalsIgnoreCase(attrType)
-                        ? AttrTypeEnum.ATTR_TYPE_BASE.getCode() : AttrTypeEnum.ATTR_TYPE_SALE.getCode());
+
+        queryWrapper.eq("attr_type", AttrTypeEnum.getAttrTypeCodeByName(attrType))
+                .or()
+                // 既是销售属性又是基本属性也要展示
+                .eq("attr_type", AttrTypeEnum.ATTR_TYPE_BOTH.getCode());
         if (catelogId != 0) {
             queryWrapper.eq("catelog_id", catelogId);
         }
@@ -100,10 +102,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             AttrRespVO vo = new AttrRespVO();
             BeanUtils.copyProperties(entity, vo);
 
-
             // 设置分组名称
             AttrAttrgroupRelationEntity attrAttrgroupRelationEntity = null;
-            if (AttrTypeEnum.ATTR_TYPE_BASE.getName().equalsIgnoreCase(attrType)) {
+            if (AttrTypeEnum.ATTR_TYPE_BASE.getName().equalsIgnoreCase(attrType)
+                    || AttrTypeEnum.ATTR_TYPE_BOTH.getName().equalsIgnoreCase(attrType)) {
                 // 基本属性才有分组，销售属性没有分组
                 attrAttrgroupRelationEntity = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>()
                                 .eq("attr_id", entity.getAttrId()));
@@ -182,7 +184,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     @Override
-    public List<AttrEntity> getRelationAttr(Long attrGroupId) {
+    public List<AttrEntity> getRelationAttr(long attrGroupId) {
+        return this.getRelationAttr(attrGroupId, null);
+    }
+
+    @Override
+    public List<AttrEntity> getRelationAttr(long attrGroupId, Integer attrType) {
         List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>()
                 .eq("attr_group_id", attrGroupId));
         List<Long> attrIds = relationEntities.stream()
@@ -191,7 +198,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         if (attrIds.isEmpty()) {
             return Collections.emptyList();
         }
-        return this.listByIds(attrIds);
+        return this.baseMapper.selectList(new QueryWrapper<AttrEntity>()
+                .in("attr_id", attrIds)
+                .eq(attrType != null, "attr_type", attrType));
     }
 
     @Override

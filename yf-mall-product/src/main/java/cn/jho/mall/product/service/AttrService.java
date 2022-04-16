@@ -65,12 +65,23 @@ public interface AttrService extends IService<AttrEntity> {
      * @param attrGroupId 属性分组id
      * @return {@link List<AttrEntity>}
      */
-    List<AttrEntity> getRelationAttr(Long attrGroupId);
+    List<AttrEntity> getRelationAttr(long attrGroupId);
+
+
+    /**
+     * 根据属性分组id获取属性列表
+     *
+     * @param attrGroupId 属性分组id
+     * @param attrType 属性类型
+     * @return {@link List<AttrEntity>}
+     */
+    List<AttrEntity> getRelationAttr(long attrGroupId, Integer attrType);
 
     /**
      * 获取没有与属性分组关联的所有属性
      *  1. 只关联属性分组所属分类下的属性
      *  2. 只关联没有其他属性分组关联的属性
+     *  3. 基本属性（即attr_type=0才需要关联分组），销售属性（即attr_type=1不需要关联分组）
      *
      * @param attrGroupId 属性分组id
      * @param params 查询参数
