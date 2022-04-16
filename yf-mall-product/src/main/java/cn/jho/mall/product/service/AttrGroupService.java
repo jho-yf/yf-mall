@@ -1,9 +1,11 @@
 package cn.jho.mall.product.service;
 
+import cn.jho.mall.product.vo.AttrGroupWithAttrsVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jho.common.utils.PageUtils;
 import cn.jho.mall.product.entity.AttrGroupEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +34,12 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      */
     PageUtils queryPage(Map<String, Object> params, Long categoryId);
 
-
+    /**
+     * 获取某个分类下所有的属性分组以及分组下的属性
+     *
+     * @param catelogId 分类id
+     * @return {@link List<AttrGroupWithAttrsVO>}
+     */
+    List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCatelogId(Long catelogId);
 }
 
