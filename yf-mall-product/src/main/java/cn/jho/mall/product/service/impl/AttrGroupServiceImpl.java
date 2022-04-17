@@ -1,5 +1,6 @@
 package cn.jho.mall.product.service.impl;
 
+import cn.jho.common.constant.ProductConst;
 import cn.jho.common.utils.PageUtils;
 import cn.jho.common.utils.Query;
 import cn.jho.mall.product.dao.AttrGroupDao;
@@ -61,7 +62,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return attrGroups.stream().map(entity -> {
             AttrGroupWithAttrsVO vo = new AttrGroupWithAttrsVO();
             BeanUtils.copyProperties(entity, vo);
-            vo.setAttrs(attrService.getRelationAttr(entity.getAttrGroupId()));
+            // 只展示基本属性
+            vo.setAttrs(attrService.getRelationAttr(entity.getAttrGroupId(),
+                    ProductConst.AttrTypeEnum.ATTR_TYPE_BASE.getCode()));
             return vo;
         }).collect(Collectors.toList());
     }
